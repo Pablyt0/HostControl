@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Form</title>
+    <!-- Link para o Font Awesome para os ícones -->
+    <link rel="stylesheet" href="src/css/style.css">
+    <!-- Estilos personalizados (adicionar o seu próprio arquivo CSS se houver) -->
+    <style>
+        /* Estilos personalizados aqui */
+    </style>
+</head>
+<body>
+    <article class="card">
+        <div class="container">
+            <div class="card-title">
+                <h2>Pagamento</h2>
+            </div>
+            <div class="card-body">
+                <div class="payment-type">
+                    <h4>Selecione o Método de Pagamento</h4>
+                    <div class="types flex justify-space-between">
+                        <div class="type selected">
+                            <div class="logo">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M64 32C28.7 32 0 60.7 0 96v32H576V96c0-35.3-28.7-64-64-64H64zM576 224H0V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V224zM112 352h64c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm112 16c0-8.8 7.2-16 16-16H368c8.8 0 16 7.2 16 16s-7.2 16-16 16H240c-8.8 0-16-7.2-16-16z"/></svg>
+                            </div>
+                            <div class="text">
+                                <p>CARTÃO DE CRÉDITO</p>
+                            </div>
+                        </div>
+                        <div class="type">
+                            <div class="logo">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M64 32C28.7 32 0 60.7 0 96v32H576V96c0-35.3-28.7-64-64-64H64zM576 224H0V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V224zM112 352h64c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm112 16c0-8.8 7.2-16 16-16H368c8.8 0 16 7.2 16 16s-7.2 16-16 16H240c-8.8 0-16-7.2-16-16z"/></svg>
+                            </div>
+                            <div class="text">
+                                <p>CARTÃO DE DÉBITO</p>
+                            </div>
+                        </div>
+                        <div class="type">
+                            <div class="logo">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M242.4 292.5C247.8 287.1 257.1 287.1 262.5 292.5L339.5 369.5C353.7 383.7 372.6 391.5 392.6 391.5H407.7L310.6 488.6C280.3 518.1 231.1 518.1 200.8 488.6L103.3 391.2H112.6C132.6 391.2 151.5 383.4 165.7 369.2L242.4 292.5zM262.5 218.9C256.1 224.4 247.9 224.5 242.4 218.9L165.7 142.2C151.5 127.1 132.6 120.2 112.6 120.2H103.3L200.7 22.8C231.1-7.6 280.3-7.6 310.6 22.8L407.8 119.9H392.6C372.6 119.9 353.7 127.7 339.5 141.9L262.5 218.9zM112.6 142.7C126.4 142.7 139.1 148.3 149.7 158.1L226.4 234.8C233.6 241.1 243 245.6 252.5 245.6C261.9 245.6 271.3 241.1 278.5 234.8L355.5 157.8C365.3 148.1 378.8 142.5 392.6 142.5H430.3L488.6 200.8C518.9 231.1 518.9 280.3 488.6 310.6L430.3 368.9H392.6C378.8 368.9 365.3 363.3 355.5 353.5L278.5 276.5C264.6 262.6 240.3 262.6 226.4 276.6L149.7 353.2C139.1 363 126.4 368.6 112.6 368.6H80.8L22.8 310.6C-7.6 280.3-7.6 231.1 22.8 200.8L80.8 142.7H112.6z"/></svg>
+                            </div>
+                            <div class="text">
+                                <p>A vista<br>com PIX</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="payment-info flex justify-space-between">
+                    <div class="column billing">
+                        <div class="title">
+                            <div class="num">1</div>
+                            <h4>Endereço de cobrança</h4>
+                        </div>
+                        <div class="field full">
+                            <label for="name">Nome Completo</label>
+                            <input id="name" type="text" placeholder="Nome Completo">
+                        </div>
+                        <div class="field full">
+                            <label for="address">Complemento</label>
+                            <input id="address" type="text" placeholder="Complemento">
+                        </div>
+                        <div class="flex justify-space-between">
+                            <div class="field half">
+                                <label for="city">Cidade</label>
+                                <input id="city" type="text" placeholder="Cidade">
+                            </div>
+                            <div class="field half">
+                                <label for="state">Estado</label>
+                                <input id="state" type="text" placeholder="Estado">
+                            </div>
+                        </div>
+                        <div class="flex justify-space-between">
+                            <div class="field half">
+                                <label for="city">Rua</label>
+                                <input id="city" type="text" placeholder="Rua">
+                            </div>
+                            <div class="field half">
+                                <label for="state">Nº</label>
+                                <input id="state" type="text" placeholder="Nº">
+                            </div>
+                        </div>
+                            
+                        <div class="field full">
+                            <label for="zip">CEP</label>
+                            <input id="zip" type="text" placeholder="CEP">
+                        </div>
+                    </div>
+                    <div class="column shipping">
+                        <div class="title">
+                            <div class="num">2</div>
+                            <h4>Informações do cartão de crédito</h4>
+                        </div>
+                        <div class="field full">
+                            <label for="name">nome</label>
+                            <input id="name" type="text" placeholder="Nome">
+                        </div>
+                        <div class="field full">
+                            <label for="address">NÚMERO DE CARTÃO </label>
+                            <input id="address" type="text" placeholder="1234-5678-9012-3456">
+                        </div>
+                        <div class="flex justify-space-between">
+                            <div class="field half">
+                                <label for="city">MÊS EXPIRANTE</label>
+                                <input id="city" type="text" placeholder="12">
+                            </div>
+                            <div class="field half">
+                                <label for="state">ANO EXPIRANTE</label>
+                                <input id="state" type="text" placeholder="19">
+                            </div>
+                        </div>
+                        <div class="field full">
+                            <label for="zip">CVC </label>
+                            <input id="zip" type="text" placeholder="468">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-actions flex justify-space-between">
+                <div class="flex-start">
+                    <button class="button button-secondary" onclick="window.history.back()">RETORNAR</button>
+                </div>
+                <div class="flex-end">
+                    
+                    <a href="http://localhost/HostControl/home/Projeto%20Senai%20(TCC)%20Funcionando/host-control%20att/index%20(1).html">
+                        <button class="button button-primary">prosseguir</button>
+                      </a>
+                </div>
+            </div>
+        </div>
+    </article>
+</body>
+</html>

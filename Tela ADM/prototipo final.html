@@ -1,0 +1,2222 @@
+<html lang="pt-BR">
+  
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>HostControl - Admin</title>
+
+<!--style ----------------------------------------------------------------------------------------------->
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+  }
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  nav {
+    background-color: rgba(1,23, 43,0.918);
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  nav .logo {
+    display: flex;
+    align-items: center;
+  }
+  nav .logo img {
+    height: 40px;
+    margin-right: 20px;
+  }
+  nav h1 {
+    margin: 0;
+  }
+  nav .user-info {
+    display: flex;
+    align-items: center;
+  }
+  nav .user-info img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  .content-wrapper {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+  .sidebar {
+    width: 250px;
+    background-color: #f0f2f5;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  .sidebar ul li {
+    margin-bottom: 10px;
+  }
+  .sidebar ul li a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  .sidebar ul li a:hover, .sidebar ul li a.active {
+    background-color: #e8f0fe;
+    color: rgba(1,23, 43,0.918);
+  }
+  .sidebar ul li ul {
+    margin-left: 20px;
+    display: none;
+  }
+  .sidebar ul li.open > ul {
+    display: block;
+  }
+  .main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+  }
+  h1, h2 {
+    color: rgba(1,23, 43,0.918);
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  .stat-card {
+    background-color: #e8f0fe;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+  }
+  .stat-card h3 {
+    margin-top: 0;
+    color: rgba(1,23, 43,0.918);
+  }
+  .stat-card p {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+  }
+  th {
+    background-color: rgba(1,23, 43,0.918);
+    color: white;
+  }
+  tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+  .action-btn {
+    background-color: rgba(1,23, 43,0.918);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .action-btn:hover {
+    background-color: rgba(1,23, 43,0.918);
+  }
+  .hidden {
+    display: none;
+  }
+  .accommodations-table {
+    margin-top: 20px;
+  }
+  .accommodations-table th {
+    background-color: rgba(1,23, 43,0.918);
+    color: white;
+    padding: 12px;
+  }
+  .accommodations-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .graficopizza{
+
+    display: flex;
+    justify-content: center;
+  }
+  .graficopizza2{
+
+display: flex;
+justify-content: center;
+}
+
+.graficoLinha{
+
+display: flex;
+justify-content: center;
+}
+#chart_div {
+  aspect-ratio: 16/9; 
+width: 780px; 
+height: 500px; 
+padding: 20px; 
+border: 1px solid #ddd; 
+border-radius: 10px; 
+        }
+#chart02_div {
+  aspect-ratio: 16/9; 
+width: 780px; 
+height: 500px; 
+padding: 20px; 
+border: 1px solid #ddd; 
+border-radius: 10px; 
+        }
+
+
+#meuGrafico03 {
+
+aspect-ratio: 16/9; 
+width: 780px; 
+height: 500px; 
+padding: 20px; 
+border: 1px solid #ddd; 
+border-radius: 10px;
+}
+
+
+#graficoLinha2 {
+
+
+aspect-ratio: 16/9; 
+width: 780px; 
+height: 380px; 
+padding: 20px; 
+border: 1px solid #ddd; 
+border-radius: 10px; 
+}       
+
+#columnchart_values {
+
+  aspect-ratio: 16/9; 
+width: 780px; 
+height: 380px; 
+padding: 20px; 
+border: 1px solid #ddd; 
+border-radius: 10px; 
+}
+
+#graficoLinha {
+  aspect-ratio: 16/9; 
+width: 780px; 
+height: 380px; 
+padding: 20px; 
+border: 1px solid #ddd; 
+border-radius: 10px; 
+}  
+
+#prediction_chart_div {
+  aspect-ratio: 16/9; 
+width: 780px; 
+height: 500px; 
+padding: 20px; 
+border: 1px solid #ddd; 
+border-radius: 10px; 
+} 
+
+
+#revenueManagementChart {
+  aspect-ratio: 16/9; 
+width: 1000px; 
+height: 400px; 
+padding: 20px; 
+border: 1px solid #ddd; 
+border-radius: 10px; 
+} 
+
+
+</style>
+
+
+
+
+<!--fim style ----------------------------------------------------------------------------------------------->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/graficos.js"> </script>
+
+
+
+
+<script type="text/javascript">
+  google.charts.load("current", {packages:['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ["Month", "Accesses", { role: "style" } ],
+      ["Jan", 195, "#b87333"],
+      ["Fev", 187, "silver"],
+      ["Mar", 230, "gold"],
+      ["Abr", 210, "color: #e5e4e2"],
+      ["Mai", 220, "color: #d9534f"],
+      ["Jun", 215, "color: #5bc0de"],
+      ["Jul", 225, "color: #5cb85c"],
+      ["Ago", 235, "color: #f0ad4e"],
+      ["Set", 240, "color: #337ab7"],
+      ["Out", 250, "color: #292b2c"],
+      ["Nov", 260, "color: #f7f7f9"],
+      ["Dez", 280, "color: #a9a9a9"]
+    ]);
+
+    var view = new google.visualization.DataView(data);
+    view.setColumns([0, 1,
+                     { calc: function(dataTable, row) {
+                         return dataTable.getValue(row, 1).toString();
+                       },
+                       sourceColumn: 1,
+                       type: "string",
+                       role: "annotation" },
+                     2]);
+
+    var options = {
+      title: "Monthly Accesses in 2024",
+      width: 800,
+      height: 400,
+      bar: {groupWidth: "75%"},
+      legend: { position: "none" },
+      hAxis: {
+        title: 'Month',
+        textPosition: 'out', // Position text outside the chart
+        slantedText: false // Do not rotate labels
+      },
+      vAxis: {
+        title: 'Accesses'
+      }
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values2"));
+    chart.draw(view, options);
+  }
+</script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/graficos.js"> </script>
+
+
+
+
+<script type="text/javascript">
+  google.charts.load("current", {packages:['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ["Seg", "Visitas", { role: "style" } ],
+      ["Ter", 70, "#b87333"],
+      ["Qua", 87, "silver"],
+      ["Qui", 90, "gold"],
+      ["Sex", 67, "color: #e5e4e2"],
+      ["Sáb", 120, "color: #d9534f"],
+      ["Dom", 215, "color: #5bc0de"]
+      
+    ]);
+
+    var view = new google.visualization.DataView(data);
+    view.setColumns([0, 1,
+                     { calc: function(dataTable, row) {
+                         return dataTable.getValue(row, 1).toString();
+                       },
+                       sourceColumn: 1,
+                       type: "string",
+                       role: "annotation" },
+                     2]);
+
+   var options = {
+    title: "Visitas na semana",
+    width: 800,
+    height: 400,
+    bar: { groupWidth: "75%" },
+    legend: { position: "none" },
+    titleTextStyle: {
+        fontSize: 20, // Tamanho do título aumentado para 20 pixels
+        color: '#333', // Cor do título (opcional)
+        bold: true, // Título em negrito
+        italic: false // Título em itálico
+    },
+    hAxis: {
+        title: '',
+        textPosition: 'out', // Posição do texto fora do gráfico
+        slantedText: false // Não rotacionar os rótulos
+    },
+    vAxis: {
+        title: 'Visitas'
+    }
+};
+    var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values2"));
+    chart.draw(view, options);
+  }
+</script>
+<style>
+   #chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+   }
+   #columnchart_values2 {
+    width: 800px;
+    height: 400px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow around the chart */
+    background-color: #fff;
+    border-radius: 8px; /* Add rounded corners to the chart */
+    margin: 20px auto; /* Auto margin horizontally to center the chart */
+}
+
+</style>
+
+  <!--corpo onde vai as informações-->
+  <div class="wrapper">
+    <nav>
+      
+      <div class="logo">
+        <img src="images/novalogo-removebg-preview.png" alt="WebSim Logo">
+        
+      </div>
+      <div class="user-info">
+        <img src="https://i.pravatar.cc/150?img=68" alt="Admin Avatar">
+        <span>Administrador</span>
+      </div>
+    </nav>
+    <div class="content-wrapper">
+      <aside class="sidebar">
+        <ul>
+          <li><a href="#" class="active" data-target="dashboard">Visão Geral</a></li>
+          <li>
+        
+
+          <li>
+            <a href="#" data-target="accommodations">Gestão de Acomodações</a>
+            <ul>
+              <li><a href="#" data-target="property-list">Lista de Propriedades</a></li>
+              <li><a href="#" data-target="add-property">Detalhes da Propriedade</a></li>
+            </ul>
+          </li>
+          <li><a href="#" data-target="analytics">Gestão de Reservas</a></li>
+          <li>
+            <a href="#" data-target="settings">Gestão de Clientes</a>
+           
+          </li>
+          <li><a href="#" data-target="logs">Análise e Relatórios</a></li>
+          <li><a href="#" data-target="financeira">Gestão Financeira</a></li>
+        </ul>
+        
+      </aside>
+      <main class="main-content">
+        <div class="container">
+
+          <!-- Dashboard Section -->
+          <section id="dashboard">
+            <h2>Visão Geral</h2>
+            <!--1 parte(com card)-->
+            <div class="stats-grid">
+              <div class="stat-card">
+                <h3>Total de usuários</h3>
+                <p>167</p>
+              </div>
+              <div class="stat-card">
+                <h3>Usuários online</h3>
+                <p>4</p>
+              </div>
+              
+              <div class="stat-card">
+                <h3>Reservas recentes (diário)</h3>
+                <p>6</p>
+              </div>
+              
+            </div>
+            <section id="dashboard">
+              
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <h3>Total de acomodações</h3>
+                  <p>9</p>
+                </div>
+                <div class="stat-card">
+                  <h3>Acomodações disponíveis</h3>
+                  <p>3</p>
+                </div>
+                <div class="stat-card">
+                  <h3>Acomodações em uso</h3>
+                  <p>6</p>
+                </div>
+                
+                
+              </div>
+            <!--fim 1 parte(com card)-->
+
+            <h2>Comentários recentes</h2>
+            <!--2 parte(tabela)-->
+            <table>
+              <thead>
+                <tr>
+                  
+                  <th>Usuário</th>
+                  <th>Comentário</th>
+                  <th>Ação</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Thadeu</td>
+                  <td>site bem intuitivo</td>
+                  
+                  <td><button class="action-btn">Arquivar</button> <button class="action-btn">Deletar</button></td>
+                </tr>
+                <tr>
+                  <td>Pablão</td>
+                  <td>Este sistema me ajudou muito</td>
+
+                  <td><button class="action-btn">Arquivar</button> <button class="action-btn">Deletar</button></td>
+                </tr>
+                <tr>
+                  <td>Wander</td>
+                  <td>Sistema prático e simples para o usuário</td>
+                  <td><button class="action-btn">Arquivar</button> <button class="action-btn">Deletar</button></td>
+                </tr>
+              </tbody>
+              <!--fim 2 parte(tabela)-->
+            </table>
+
+
+<!--exemplo tabela-->
+<!--
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>User</th>
+                  <th>URL</th>
+                  <th>Created At</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>SIM12345</td>
+                  <td>johndoe</td>
+                  <td>https://websim.ai/c/SIM12345</td>
+                  <td>2023-06-15 14:30:22</td>
+                  <td><button class="action-btn">View</button> <button class="action-btn">Delete</button></td>
+                </tr>
+                <tr>
+                  <td>SIM12344</td>
+                   
+                  <td>janedoe</td>
+                  <td>https://websim.ai/c/SIM12344</td>
+                  <td>2023-06-15 14:28:15</td>
+                  <td><button class="action-btn">View</button> <button class="action-btn">Delete</button></td>
+                </tr>
+                <tr>
+                  <td>SIM12343</td>
+                  <td>bobsmith</td>
+                  <td>https://websim.ai/c/SIM12343</td>
+                  <td>2023-06-15 14:25:03</td>
+                  <td><button class="action-btn">View</button> <button class="action-btn">Delete</button></td>
+                </tr>
+              </tbody>
+              
+            </table>
+          -->
+
+
+
+            <h2>Gráfico de receita</h2>
+            <!--3 parte(lista)-->
+  
+
+
+
+
+
+  
+    <div class="container-fluid graficos">
+        <div class="container" id="graficoLinha">
+          
+          <script>
+            function desenharGrafico() {
+                google.charts.load('current', { 'packages': ['corechart'], 'language': 'pt' });
+                google.charts.setOnLoadCallback(function() {
+                    var tabela = google.visualization.arrayToDataTable([
+                        ['Mês', 'Alcançado', 'Esperado'],
+                        ['Jan', 45000, 49500],
+                        ['Fev', 40000, 44000],
+                        ['Mar', 50000, 55000],
+                        ['Abr', 45000, 49500],
+                        ['Mai', 47000, 51700],
+                        ['Jun', 46000, 50600],
+                        ['Jul', 48000, 52800],
+                        ['Ago', 50000, 55000],
+                        ['Set', 52000, 57200],
+                        ['Out', 55000, 60500],
+                        ['Nov', 56000, 61600],
+                        ['Dez', 66000, 72600]
+                    ]);
+          
+                    var opcoes = {
+                        title: 'Receita esperada e alcançada por mês',
+                        width: 800,
+                        height: 400,
+                        vAxis: {
+                            gridlines: { color: 'transparent' },
+                            format: 'currency',
+                            title: 'Valores'
+                        },
+                        hAxis: {
+                            title: '2024'
+                        }
+                    };
+          
+                    var grafico = new google.visualization.LineChart(document.getElementById('graficoLinha'));
+                    grafico.draw(tabela, opcoes);
+                });
+            }
+          
+            desenharGrafico(); // Chamar a função para desenhar o gráfico
+          </script>
+
+        </div>
+    </div>
+   
+
+
+
+</section>
+</section>
+
+            <!--fim 3 parte(lista)-->
+
+            
+            <!--4 parte(botões)-->
+
+            
+          <!--4 parte(botões)-->
+
+      
+          
+      
+
+          <!-- Accommodation Management Section -->
+          <section id="accommodations" class="hidden">
+            <h2>Acomodações em Geral</h2>
+
+
+            <div class="container-fluid graficos">
+              <div class="graficopizza">
+                
+                <canvas id="meuGrafico" style="aspect-ratio: 16/9; width: 900px; height: 400px; padding: 20px; border: 1px solid #ddd; border-radius: 10px; "></canvas>
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                
+                <script>
+                  document.addEventListener('DOMContentLoaded', function() {
+                      const ctx = document.getElementById('meuGrafico').getContext('2d');
+                      const meuGrafico = new Chart(ctx, {
+                          type: 'pie',
+                          data: {
+                              labels: ['Disponível', 'Manutenção', 'Reservado'],
+                              datasets: [{
+                                  label: 'Acomodações',
+                                  data: [5, 2, 2],
+                              }]
+                          },
+                          options: {
+                              plugins: {
+                                  tooltip: {
+                                      callbacks: {
+                                          label: function(context) {
+                                              let label = context.label || '';
+                                              if (label) {
+                                                  label += ': ';
+                                              }
+                                              label += Math.round(context.raw);
+                                              return label;
+                                          }
+                                      }
+                                  }
+                              },
+                              responsive: false,
+                              maintainAspectRatio: true,
+                              plugins: {
+                                  legend: {
+                                      position: 'left',
+                                      labels: {
+                                          font: { size: 18 }
+                                      }
+                                  },
+                                  title: {
+                                      display: true,
+                                      text: 'Total de Acomodações',
+                                      font: { size: 24 },
+                                      padding: { bottom: 30 }
+                                      
+                                  }
+                              }
+                          }
+                      });
+                  });
+              </script>
+      
+
+
+
+      
+              </div>
+          </div>
+
+          <h2>Lista das Propriedades</h2>
+          
+          <table class="accommodations-table">
+            <thead>
+              <tr>
+                  <th>Nome da Propriedade</th>
+                  <th>Localização</th>
+                  <th>Status</th>
+                  <th>Tipo</th>
+    
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>Casa na Praia</td>
+                  <td>Búzios, RJ</td>
+                  <td>Disponível</td>
+                  <td>Casa</td>
+    
+              </tr>
+              <tr>
+                  <td>Apartamento Central</td>
+                  <td>São Paulo, SP</td>
+                  <td>Reservado</td>
+                  <td>Apartamento</td>
+    
+              </tr>
+              <tr>
+                  <td>Refúgio na Montanha</td>
+                  <td>Campos do Jordão, SP</td>
+                  <td>Manutenção</td>
+                  <td>Chalé</td>
+    
+              </tr>
+              <tr>
+                  <td>Pousada do Deserto</td>
+                  <td>Jericoacoara, CE</td>
+                  <td>Disponível</td>
+                  <td>Pousada</td>
+    
+              </tr>
+              <tr>
+                  <td>Cabana à Beira do Lago</td>
+                  <td>Capitólio, MG</td>
+                  <td>Disponível</td>
+                  <td>Chalé</td>
+    
+              </tr>
+              <tr>
+                  <td>Estúdio Urbano</td>
+                  <td>Rio de Janeiro, RJ</td>
+                  <td>Reservado</td>
+                  <td>Apartamento</td>
+    
+              </tr>
+              <tr>
+                  <td>Retiro Costeiro</td>
+                  <td>Florianópolis, SC</td>
+                  <td>Disponível</td>
+                  <td>Casa</td>
+    
+              </tr>
+              <tr>
+                  <td>Chalé de Esqui</td>
+                  <td>Gramado, RS</td>
+                  <td>Manutenção</td>
+                  <td>Chalé</td>
+    
+              </tr>
+              <tr>
+                  <td>Bangalô à Beira do Rio</td>
+                  <td>Bonito, MS</td>
+                  <td>Disponível</td>
+                  <td>Casa</td>
+    
+              </tr>
+          </tbody>
+          </table>
+
+          </section>
+
+          <!-- Property List Subsection -->
+          <section id="property-list" class="hidden">
+            
+
+
+              <h2>Visão Geral</h2>
+
+
+            <!--1 parte(com card)-->
+            <div class="stats-grid">
+              <div class="stat-card">
+                <h3>Disponíveis</h3>
+                <p>5</p>
+              </div>
+              <div class="stat-card">
+                <h3>Manutenção</h3>
+                <p>2</p>
+              </div>
+              
+              <div class="stat-card">
+                <h3>Reservadas</h3>
+                <p>2</p>
+              </div>
+              
+            </div>              
+
+
+              <!--2 parte(com card)-->
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <h3>Casa</h3>
+                  <p>3</p>
+                </div>
+                <div class="stat-card">
+                  <h3>Apartamento</h3>
+                  <p>2</p>
+                </div>
+                
+                <div class="stat-card">
+                  <h3>Chalé</h3>
+                  <p>3</p>
+                </div>
+                
+                <div class="stat-card">
+                  <h3>Pousada</h3>
+                  <p>1</p>
+                </div>
+                
+              </div>
+        
+            
+            <h2>Lista das Propriedades</h2>
+            <table class="accommodations-table">
+              <thead>
+                <tr>
+                    <th>Nome da Propriedade</th>
+                    <th>Localização</th>
+                    <th>Status</th>
+                    <th>Capacidade</th>
+                    <th>Tipo</th>
+                    <th>Ajustes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Casa na Praia</td>
+                    <td>Búzios, RJ</td>
+                    <td>Disponível</td>
+                    <td>8 pessoas</td>
+                    <td>Casa</td>
+                    <td><button class="action-btn">Editar</button> <button class="action-btn">Deletar</button></td>
+                </tr>
+                <tr>
+                    <td>Apartamento Central</td>
+                    <td>São Paulo, SP</td>
+                    <td>Reservado</td>
+                    <td>4 pessoas</td>
+                    <td>Apartamento</td>
+                    <td><button class="action-btn">Editar</button> <button class="action-btn">Deletar</button></td>
+                </tr>
+                <tr>
+                    <td>Refúgio na Montanha</td>
+                    <td>Campos do Jordão, SP</td>
+                    <td>Manutenção</td>
+                    <td>2 pessoas</td>
+                    <td>Chalé</td>
+                    <td><button class="action-btn">Editar</button> <button class="action-btn">Deletar</button></td>
+                </tr>
+                <tr>
+                    <td>Pousada do Deserto</td>
+                    <td>Jericoacoara, CE</td>
+                    <td>Disponível</td>
+                    <td>6 pessoas</td>
+                    <td>Pousada</td>
+                    <td><button class="action-btn">Editar</button> <button class="action-btn">Deletar</button></td>
+                </tr>
+                <tr>
+                    <td>Cabana à Beira do Lago</td>
+                    <td>Capitólio, MG</td>
+                    <td>Disponível</td>
+                    <td>5 pessoas</td>
+                    <td>Chalé</td>
+                    <td><button class="action-btn">Editar</button> <button class="action-btn">Deletar</button></td>
+                </tr>
+                <tr>
+                    <td>Estúdio Urbano</td>
+                    <td>Rio de Janeiro, RJ</td>
+                    <td>Reservado</td>
+                    <td>2 pessoas</td>
+                    <td>Apartamento</td>
+                    <td><button class="action-btn">Editar</button> <button class="action-btn">Deletar</button></td>
+                </tr>
+                <tr>
+                    <td>Retiro Costeiro</td>
+                    <td>Florianópolis, SC</td>
+                    <td>Disponível</td>
+                    <td>7 pessoas</td>
+                    <td>Casa</td>
+                    <td><button class="action-btn">Editar</button> <button class="action-btn">Deletar</button></td>
+                </tr>
+                <tr>
+                    <td>Chalé de Esqui</td>
+                    <td>Gramado, RS</td>
+                    <td>Manutenção</td>
+                    <td>8 pessoas</td>
+                    <td>Chalé</td>
+                    <td><button class="action-btn">Editar</button> <button class="action-btn">Deletar</button></td>
+                </tr>
+                <tr>
+                    <td>Bangalô à Beira do Rio</td>
+                    <td>Bonito, MS</td>
+                    <td>Disponível</td>
+                    <td>3 pessoas</td>
+                    <td>Casa</td>
+                    <td><button class="action-btn">Editar</button> <button class="action-btn">Deletar</button></td>
+                </tr>
+            </tbody>
+            </table>
+          </section>
+
+          <!-- Add Property Subsection -->
+          <section id="add-property" class="hidden">
+
+
+            <h2>Lista das Propriedades</h2>
+            <table class="accommodations-table">
+              <thead>
+                  <tr>
+                      <th>Nome da Propriedade</th>
+                      <th>Localização</th>
+                      <th>Nota Geral</th>
+                      <th>Comentários</th>
+                      <th>Valor da Diária</th>
+                      <th>Serviço de Quarto</th>
+                      <th>Wifi</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>Casa na Praia</td>
+                      <td>Búzios, RJ</td>
+                      <td>8</td>
+                      <td>Ótima localização, espaçosa</td>
+                      <td>R$ 600</td>
+                      <td>Não</td>
+                      <td>Ótimo</td>
+                  </tr>
+                  <tr>
+                      <td>Apartamento Central</td>
+                      <td>São Paulo, SP</td>
+                      <td>7</td>
+                      <td>Bem localizado, limpo</td>
+                      <td>R$ 400</td>
+                      <td>Sim</td>
+                      <td>Bom</td>
+                  </tr>
+                  <tr>
+                      <td>Refúgio na Montanha</td>
+                      <td>Campos do Jordão, SP</td>
+                      <td>6</td>
+                      <td>Local tranquilo, precisa de manutenção</td>
+                      <td>R$ 300</td>
+                      <td>Não</td>
+                      <td>Ruim</td>
+                  </tr>
+                  <tr>
+                      <td>Pousada do Deserto</td>
+                      <td>Lençóis Maranhenses, MA</td>
+                      <td>9</td>
+                      <td>Maravilhosa vista, atendimento excelente</td>
+                      <td>R$ 800</td>
+                      <td>Sim</td>
+                      <td>Ótimo</td>
+                  </tr>
+                  <tr>
+                      <td>Estúdio Urbano</td>
+                      <td>Rio de Janeiro, RJ</td>
+                      <td>7</td>
+                      <td>Bem localizado, confortável</td>
+                      <td>R$ 350</td>
+                      <td>Não</td>
+                      <td>Bom</td>
+                  </tr>
+                  <tr>
+                      <td>Bangalô à Beira do Rio</td>
+                      <td>Bonito, MS</td>
+                      <td>8</td>
+                      <td>Local paradisíaco, espaçoso</td>
+                      <td>R$ 700</td>
+                      <td>Sim</td>
+                      <td>Bom</td>
+                  </tr>
+                  <tr>
+                      <td>Retiro Costeiro</td>
+                      <td>Porto de Galinhas, PE</td>
+                      <td>7</td>
+                      <td>Excelente vista, ambiente agradável</td>
+                      <td>R$ 450</td>
+                      <td>Sim</td>
+                      <td>Bom</td>
+                  </tr>
+                  <tr>
+                      <td>Cabana à Beira do Lago</td>
+                      <td>Gramado, RS</td>
+                      <td>9</td>
+                      <td>Localização privilegiada, confortável</td>
+                      <td>R$ 750</td>
+                      <td>Sim</td>
+                      <td>Ótimo</td>
+                  </tr>
+                  <tr>
+                      <td>Chalé de Esqui</td>
+                      <td>Campos do Jordão, SP</td>
+                      <td>8</td>
+                      <td>Perfeito para esquiadores, confortável</td>
+                      <td>R$ 600</td>
+                      <td>Sim</td>
+                      <td>Ótimo</td>
+                  </tr>
+              </tbody>
+          </table>
+          
+          
+
+
+
+          </section>
+
+          <!-- Analytics Section -->  
+          <section id="analytics" class="hidden">
+            <h2>Gestão de reservas</h2>
+            <table class="clients-table">
+              <thead>
+                <tr>
+                    <th>ID do Hóspede</th>
+                    <th>Nome do Hóspede</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Status</th>
+                    <th>ID do Local</th>
+                    <th>Nome do Local</th>
+                    <th>Valor Pago</th>
+                    <th>Valor Pendente</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>João Silva</td>
+                    <td>2024-07-01</td>
+                    <td>2024-07-05</td>
+                    <td>Confirmada</td>
+                    <td>101</td>
+                    <td>Hotel Central</td>
+                    <td>R$ 500,00</td>
+                    <td>R$ 0,00</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Maria Oliveira</td>
+                    <td>2024-07-03</td>
+                    <td>2024-07-07</td>
+                    <td>Pendente</td>
+                    <td>102</td>
+                    <td>Pousada Sol</td>
+                    <td>R$ 300,00</td>
+                    <td>R$ 150,00</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Carlos Lima</td>
+                    <td>2024-07-10</td>
+                    <td>2024-07-12</td>
+                    <td>Cancelada</td>
+                    <td>103</td>
+                    <td>Resort Mar</td>
+                    <td>R$ 0,00</td>
+                    <td>R$ 0,00</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Ana Pereira</td>
+                    <td>2024-07-15</td>
+                    <td>2024-07-18</td>
+                    <td>Confirmada</td>
+                    <td>104</td>
+                    <td>Hotel Jardim</td>
+                    <td>R$ 450,00</td>
+                    <td>R$ 0,00</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Bruno Costa</td>
+                    <td>2024-07-20</td>
+                    <td>2024-07-23</td>
+                    <td>Pendente</td>
+                    <td>105</td>
+                    <td>Hostel Lua</td>
+                    <td>R$ 200,00</td>
+                    <td>R$ 100,00</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Carla Souza</td>
+                    <td>2024-07-25</td>
+                    <td>2024-07-28</td>
+                    <td>Confirmada</td>
+                    <td>106</td>
+                    <td>Pousada Flor</td>
+                    <td>R$ 350,00</td>
+                    <td>R$ 0,00</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Fernando Santos</td>
+                    <td>2024-07-30</td>
+                    <td>2024-08-02</td>
+                    <td>Pendente</td>
+                    <td>107</td>
+                    <td>Hotel Rio</td>
+                    <td>R$ 250,00</td>
+                    <td>R$ 200,00</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Laura Mendes</td>
+                    <td>2024-08-05</td>
+                    <td>2024-08-08</td>
+                    <td>Cancelada</td>
+                    <td>108</td>
+                    <td>Resort Montanha</td>
+                    <td>R$ 0,00</td>
+                    <td>R$ 0,00</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Marcelo Andrade</td>
+                    <td>2024-08-10</td>
+                    <td>2024-08-13</td>
+                    <td>Confirmada</td>
+                    <td>109</td>
+                    <td>Hotel Centro</td>
+                    <td>R$ 400,00</td>
+                    <td>R$ 0,00</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Patrícia Silva</td>
+                    <td>2024-08-15</td>
+                    <td>2024-08-18</td>
+                    <td>Pendente</td>
+                    <td>110</td>
+                    <td>Pousada Vento</td>
+                    <td>R$ 150,00</td>
+                    <td>R$ 150,00</td>
+                </tr>
+              </tbody>
+          </table>
+<br>
+<h2>Detalhes de reservas ativas</h2>
+
+<table class="clients-table">
+  <thead>
+    <tr>
+        <th>ID da Reserva</th>
+        <th>Nome do Hóspede</th>
+        <th>Telefone</th>
+        <th>CEP</th>
+        <th>Detalhes do Pagamento</th>
+        <th>Cama(s)</th>
+        <th>Quarto</th>
+        <th>Nº de Hóspedes</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td>1</td>
+        <td>João Silva</td>
+        <td>(11) 91234-5678</td>
+        <td>01001-000</td>
+        <td>Pago</td>
+        <td>1 casal</td>
+        <td>com TV</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Maria Oliveira</td>
+        <td>(21) 92345-6789</td>
+        <td>20000-000</td>
+        <td>Pendente</td>
+        <td>2 solteiro</td>
+        <td>sem TV</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Carlos Lima</td>
+        <td>(31) 93456-7890</td>
+        <td>30000-000</td>
+        <td>Pago</td>
+        <td>3 solteiro</td>
+        <td>com TV</td>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Ana Pereira</td>
+        <td>(41) 94567-8901</td>
+        <td>40000-000</td>
+        <td>Pago</td>
+        <td>1 casal</td>
+        <td>sem TV</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>Bruno Costa</td>
+        <td>(51) 95678-9012</td>
+        <td>50000-000</td>
+        <td>Pendente</td>
+        <td>2 solteiro</td>
+        <td>com TV</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>Carla Souza</td>
+        <td>(61) 96789-0123</td>
+        <td>60000-000</td>
+        <td>Pago</td>
+        <td>1 casal, 1 solteiro</td>
+        <td>sem TV</td>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>Fernando Santos</td>
+        <td>(71) 97890-1234</td>
+        <td>70000-000</td>
+        <td>Pendente</td>
+        <td>1 casal</td>
+        <td>com TV</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>Laura Mendes</td>
+        <td>(81) 98901-2345</td>
+        <td>80000-000</td>
+        <td>Pago</td>
+        <td>2 solteiro</td>
+        <td>sem TV</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>Marcelo Andrade</td>
+        <td>(91) 99012-3456</td>
+        <td>90000-000</td>
+        <td>Pago</td>
+        <td>1 casal</td>
+        <td>com TV</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>Patrícia Silva</td>
+        <td>(11) 90123-4567</td>
+        <td>01002-000</td>
+        <td>Pendente</td>
+        <td>3 solteiro</td>
+        <td>com TV</td>
+        <td>3</td>
+    </tr>
+</tbody>
+</table>
+<br>
+<h2>Reservas concluídas</h2>
+<table class="clients-table">
+  <thead>
+    <tr>
+        <th>ID do Hóspede</th>
+        <th>Nome do Hóspede</th>
+        <th>Check-in</th>
+        <th>Check-out</th>
+        <th>ID do Local</th>
+        <th>Nome do Local</th>
+        <th>Valor Total Pago</th>
+        <th>Status da Reserva</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td>001</td>
+        <td>João Silva</td>
+        <td>2024-08-01</td>
+        <td>2024-08-10</td>
+        <td>101</td>
+        <td>Hotel ABC</td>
+        <td>R$ 1.500,00</td>
+        <td>Concluída</td>
+    </tr>
+    <tr>
+        <td>002</td>
+        <td>Maria Oliveira</td>
+        <td>2024-08-05</td>
+        <td>2024-08-15</td>
+        <td>102</td>
+        <td>Pousada XYZ</td>
+        <td>R$ 2.000,00</td>
+        <td>Concluída</td>
+    </tr>
+    <tr>
+        <td>003</td>
+        <td>Carlos Pereira</td>
+        <td>2024-08-10</td>
+        <td>2024-08-20</td>
+        <td>103</td>
+        <td>Resort Maravilha</td>
+        <td>R$ 3.000,00</td>
+        <td>Concluída</td>
+    </tr>
+    <tr>
+        <td>004</td>
+        <td>Ana Costa</td>
+        <td>2024-08-12</td>
+        <td>2024-08-18</td>
+        <td>104</td>
+        <td>Hotel Central</td>
+        <td>R$ 1.200,00</td>
+        <td>Concluída</td>
+    </tr>
+    <tr>
+        <td>005</td>
+        <td>Lucas Souza</td>
+        <td>2024-08-15</td>
+        <td>2024-08-25</td>
+        <td>105</td>
+        <td>Hostel Aventura</td>
+        <td>R$ 800,00</td>
+        <td>Concluída</td>
+    </tr>
+    <tr>
+        <td>006</td>
+        <td>Mariana Lima</td>
+        <td>2024-08-18</td>
+        <td>2024-08-28</td>
+        <td>106</td>
+        <td>Pousada Tranquila</td>
+        <td>R$ 1.600,00</td>
+        <td>Concluída</td>
+    </tr>
+    <tr>
+        <td>007</td>
+        <td>Fernando Rocha</td>
+        <td>2024-08-20</td>
+        <td>2024-08-30</td>
+        <td>107</td>
+        <td>Hotel Vista</td>
+        <td>R$ 2.500,00</td>
+        <td>Concluída</td>
+    </tr>
+    <tr>
+        <td>008</td>
+        <td>Patrícia Mendes</td>
+        <td>2024-08-22</td>
+        <td>2024-08-29</td>
+        <td>108</td>
+        <td>Resort Paraíso</td>
+        <td>R$ 4.000,00</td>
+        <td>Concluída</td>
+    </tr>
+    <tr>
+        <td>009</td>
+        <td>Rafael Gomes</td>
+        <td>2024-08-25</td>
+        <td>2024-09-05</td>
+        <td>109</td>
+        <td>Hotel Conforto</td>
+        <td>R$ 1.300,00</td>
+        <td>Concluída</td>
+    </tr>
+    <tr>
+        <td>010</td>
+        <td>Gabriela Santos</td>
+        <td>2024-08-28</td>
+        <td>2024-09-07</td>
+        <td>110</td>
+        <td>Hostel Alegre</td>
+        <td>R$ 900,00</td>
+        <td>Concluída</td>
+    </tr>
+</tbody>
+</table>
+
+          </section>
+
+          <!-- Settings Section -->
+          <section id="settings" class="hidden">
+
+            
+
+            <div class="stats-grid">
+              <div class="stat-card">
+                <h3>Total de Clientes</h3>
+                <p>10</p>
+              </div>
+              <div class="stat-card">
+                <h3>Clientes Ativos</h3>
+                <p>7</p>
+              </div>
+              
+              <div class="stat-card">
+                <h3>Clientes Inativos</h3>
+                <p>2</p>
+              </div>
+              
+              <div class="stat-card">
+                <h3>Clientes Suspensos</h3>
+                <p>1</p>
+              </div>
+              
+            </div>
+
+
+            <div class="container-fluid graficos">
+              <div class="graficopizza">
+                
+                <canvas id="meuGrafico03" style="aspect-ratio: 16/9; width: 800px; height: 400px; padding: 20px; border: 1px solid #ddd; border-radius: 10px; "></canvas>
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                
+                <script>
+                  document.addEventListener('DOMContentLoaded', function() {
+                      const ctx = document.getElementById('meuGrafico03').getContext('2d');
+                      const meuGrafico = new Chart(ctx, {
+                          type: 'pie',
+                          data: {
+                              labels: ['Clientes Ativos', 'Clientes Inativos', 'Clientes Suspensos'],
+                              datasets: [{
+                                  label: 'Clientes',
+                                  data: [7, 2, 1],
+                              }]
+                          },
+                          options: {
+                              plugins: {
+                                  tooltip: {
+                                      callbacks: {
+                                          label: function(context) {
+                                              let label = context.label || '';
+                                              if (label) {
+                                                  label += ': ';
+                                              }
+                                              label += Math.round(context.raw);
+                                              return label;
+                                          }
+                                      }
+                                  }
+                              },
+                              responsive: false,
+                              maintainAspectRatio: true,
+                              plugins: {
+                                  legend: {
+                                      position: 'left',
+                                      labels: {
+                                          font: { size: 18 }
+                                      }
+                                  },
+                                  title: {
+                                      display: true,
+                                      text: 'Total de Clientes',
+                                      font: { size: 24 },
+                                      padding: { bottom: 30 }
+                                      
+                                  }
+                              }
+                          }
+                      });
+                  });
+              </script>
+      
+
+
+
+      
+              </div>
+          </div>
+
+
+<br>
+<h2>Acessos por mês</h2>
+
+
+<script type="text/javascript">
+  google.charts.load("current", {packages:['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ["Month", "Accesses", { role: "style" } ],
+      ["Jan", 195, "#b87333"],
+      ["Fev", 187, "silver"],
+      ["Mar", 230, "gold"],
+      ["Abr", 210, "color: #e5e4e2"],
+      ["Mai", 220, "color: #d9534f"],
+      ["Jun", 215, "color: #5bc0de"],
+      ["Jul", 225, "color: #5cb85c"],
+      ["Ago", 235, "color: #f0ad4e"],
+      ["Set", 240, "color: #337ab7"],
+      ["Out", 250, "color: #292b2c"],
+      ["Nov", 260, "color: #f7f7f9"],
+      ["Dez", 280, "color: #a9a9a9"]
+    ]);
+
+    var view = new google.visualization.DataView(data);
+    view.setColumns([0, 1,
+                     { calc: function(dataTable, row) {
+                         return dataTable.getValue(row, 1).toString();
+                       },
+                       sourceColumn: 1,
+                       type: "string",
+                       role: "annotation" },
+                     2]);
+
+    var options = {
+      title: "Acessos por mês em 2024",
+      width: 800,
+      height: 400,
+      bar: {groupWidth: "75%"},
+      legend: { position: "none" },
+      hAxis: {
+        title: 'Mês',
+        textPosition: 'out', // Position text outside the chart
+        slantedText: false // Do not rotate labels
+      },
+      vAxis: {
+        title: 'Acessos'
+      }
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+    chart.draw(view, options);
+  }
+</script>
+
+
+            <div id="columnchart_values" class="container" style="width: 800px; height: 400px;"></div>
+
+
+            <h2>Tabela de Clientes</h2>  
+            <table class="clients-table">
+              <thead>
+                  <tr>
+                      <th>Nome</th>
+                      <th>Telefone</th>
+                      <th>Status</th>
+                      <th>Data da Inscrição</th>
+                      <th>Última Atualização</th>
+                      <th>Número de Reservas</th>
+                      <th>Última Reserva</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>Maria Silva</td>
+                      <td>(11) 98765-4321</td>
+                      <td>Ativo</td>
+                      <td>01/03/2022</td>
+                      <td>15/06/2023</td>
+                      <td>5</td>
+                      <td>12/06/2023</td>
+                  </tr>
+                  <tr>
+                      <td>João Pereira</td>
+                      <td>(21) 91234-5678</td>
+                      <td>Inativo</td>
+                      <td>15/05/2021</td>
+                      <td>20/08/2023</td>
+                      <td>3</td>
+                      <td>20/05/2023</td>
+                  </tr>
+                  <tr>
+                      <td>Ana Souza</td>
+                      <td>(31) 99876-5432</td>
+                      <td>Ativo</td>
+                      <td>22/09/2022</td>
+                      <td>10/07/2023</td>
+                      <td>7</td>
+                      <td>08/07/2023</td>
+                  </tr>
+                  <tr>
+                      <td>Lucas Lima</td>
+                      <td>(41) 98765-1234</td>
+                      <td>Suspenso</td>
+                      <td>05/12/2020</td>
+                      <td>12/09/2023</td>
+                      <td>2</td>
+                      <td>10/09/2023</td>
+                  </tr>
+                  <tr>
+                      <td>Beatriz Costa</td>
+                      <td>(71) 91234-8765</td>
+                      <td>Ativo</td>
+                      <td>30/06/2022</td>
+                      <td>25/11/2023</td>
+                      <td>4</td>
+                      <td>22/11/2023</td>
+                  </tr>
+                  <tr>
+                      <td>Pedro Santos</td>
+                      <td>(81) 98765-4321</td>
+                      <td>Ativo</td>
+                      <td>10/04/2023</td>
+                      <td>15/07/2023</td>
+                      <td>6</td>
+                      <td>14/07/2023</td>
+                  </tr>
+                  <tr>
+                      <td>Juliana Alves</td>
+                      <td>(51) 91234-5678</td>
+                      <td>Ativo</td>
+                      <td>05/05/2022</td>
+                      <td>20/06/2023</td>
+                      <td>8</td>
+                      <td>19/06/2023</td>
+                  </tr>
+                  <tr>
+                      <td>Fernando Costa</td>
+                      <td>(62) 99876-5432</td>
+                      <td>Suspenso</td>
+                      <td>25/08/2021</td>
+                      <td>15/08/2023</td>
+                      <td>1</td>
+                      <td>14/08/2023</td>
+                  </tr>
+                  <tr>
+                      <td>Larissa Oliveira</td>
+                      <td>(85) 98765-1234</td>
+                      <td>Inativo</td>
+                      <td>15/10/2020</td>
+                      <td>10/09/2023</td>
+                      <td>0</td>
+                      <td>N/A</td>
+                  </tr>
+                  <tr>
+                      <td>Roberto Nunes</td>
+                      <td>(71) 91234-8765</td>
+                      <td>Ativo</td>
+                      <td>20/11/2022</td>
+                      <td>05/12/2023</td>
+                      <td>3</td>
+                      <td>04/12/2023</td>
+                  </tr>
+              </tbody>
+          </table>
+
+
+
+          </section>
+          
+          <!-- General Settings Subsection -->
+          <section id="general-settings" class="hidden">
+            <h2>General Settings</h2>
+            <p>This subsection would allow managing general system settings.</p>
+          </section>
+          
+          <!-- Appearance Subsection -->  
+          <section id="appearance" class="hidden">
+            <h2>Appearance</h2>
+            <p>This subsection would allow customizing the appearance of the admin panel.</p>
+          </section>
+          
+          <!-- Integrations Subsection -->
+          <section id="integrations" class="hidden">
+            <h2>Integrations</h2>  
+            <p>This subsection would allow managing third-party integrations.</p>
+          </section>
+
+          <!-- analise e relatorios section -->
+          <section id="logs" class="hidden">
+            
+            <h2>Análise de Dados</h2>
+            <br>
+            <h1>Visitas por dia</h1>
+            <div id="columnchart_values2" style="width: 800px; height: 400px; display: flex;
+  justify-content: right;"></div>
+             <br>
+             <hr color="01172BEA">
+             <br>
+            <h2>Páginas visualizadas</h2>
+            <div class="container-fluid graficos">
+              <div class="graficopizza">
+                
+                <canvas id="meuGrafico2" style="aspect-ratio: 16/9; width: 900px; height: 400px; padding: 20px; border: 1px solid #ddd; border-radius: 10px; "></canvas>
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                
+                <script>
+                  document.addEventListener('DOMContentLoaded', function() {
+                      const ctx = document.getElementById('meuGrafico2').getContext('2d');
+                      const meuGrafico = new Chart(ctx, {
+                          type: 'pie',
+                          data: {
+                              labels: ['Home', 'Sobre nós', 'Todas as acomodações', 'Tela de Acomodação', 'Formulário de reserva', 'Login'],
+                              datasets: [{
+
+                                  data: [90, 44, 85, 70, 17, 90],
+                              }]
+                          },
+                          options: {
+                              plugins: {
+                                  tooltip: {
+                                      callbacks: {
+                                          label: function(context) {
+                                              let label = context.label || '';
+                                              if (label) {
+                                                  label += ': ';
+                                              }
+                                              label += Math.round(context.raw);
+                                              return label;
+                                          }
+                                      }
+                                  }
+                              },
+                              responsive: false,
+                              maintainAspectRatio: true,
+                              plugins: {
+                                  legend: {
+                                      position: 'left',
+                                      labels: {
+                                          font: { size: 18 }
+                                      }
+                                  },
+                                  title: {
+                                      display: true,
+                                      text: 'Páginas visualizadas por usuário (diário)',
+                                      font: { size: 24 },
+                                      padding: { bottom: 30 }
+                                      
+                                  }
+                              }
+                          }
+                      });
+                  });
+              </script>
+      
+
+
+
+      
+              </div>
+          </div>
+          <br>
+          <hr color="01172BEA">
+          <br>
+            <h1>Taxa de Conversão (Visitas em Reservas)</h1>
+          
+          
+          <!-- Gráfico de Barras -->
+          <div class="container" id="chart_div"></div>
+      
+          <script type="text/javascript">
+        google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(drawAxisTickColors);
+
+        function drawAxisTickColors() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', '2024');
+            data.addColumn('number', 'Visitas');
+            data.addColumn('number', 'Reservas');
+
+            data.addRows([
+                ['Jan', 1070, 90],
+                ['Fev', 1051, 130],
+                ['Mar', 1250, 140],
+                ['Abr', 1580, 190],
+                ['Mai', 1620, 130],
+                ['Jun', 2145, 420],
+                ['Jul', 1580, 322],
+                ['Ago', 1545, 305],
+                ['Set', 1850, 202],
+                ['Out', 1560, 151],
+                ['Nov', 1201, 625],
+                ['Dez', 1308, 560],
+            ]);
+
+            var options = {
+                width: 770,
+                height: 520,
+                title: 'Visitas em relação as reservas',
+                titleTextStyle: {
+                    fontSize: 24,
+                    bold: true,
+                    color: '#333',
+                    alignment: 'center'
+                },
+                focusTarget: 'category',
+                hAxis: {
+                    title: '2024',
+                    textStyle: {
+                        fontSize: 14,
+                        color: '#053061',
+                        bold: true,
+                        italic: false
+                    },
+                    titleTextStyle: {
+                        fontSize: 18,
+                        color: '#053061',
+                        bold: true,
+                        italic: false
+                    }
+                },
+                vAxis: {
+                    title: '',
+                    textStyle: {
+                        fontSize: 18,
+                        color: '#67001f',
+                        bold: false,
+                        italic: false
+                    },
+                    titleTextStyle: {
+                        fontSize: 18,
+                        color: '#67001f',
+                        bold: true,
+                        italic: false
+                    }
+                }
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+          <br>
+          <hr color="01172BEA">
+          <br>
+            <h1>Padrões de feedback</h1>
+            <br>
+            <div class="container-fluid graficos">
+              <div class="graficopizza">
+                
+                <canvas id="meuGrafico3" style="aspect-ratio: 16/9; width: 900px; height: 400px; padding: 20px; border: 1px solid #ddd; border-radius: 10px; "></canvas>
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                
+                <script>
+                  document.addEventListener('DOMContentLoaded', function() {
+                      const ctx = document.getElementById('meuGrafico3').getContext('2d');
+                      const meuGrafico = new Chart(ctx, {
+                          type: 'pie',
+                          data: {
+                              labels: ['Limpeza', 'Localização', 'Atendimento', 'Conforto', ' Segurança', 'Wifi', 'Preço'],
+                              datasets: [{
+                                  
+                                  data: [9, 4, 6, 10, 17, 12],
+                              }]
+                          },
+                          options: {
+                              plugins: {
+                                  tooltip: {
+                                      callbacks: {
+                                          label: function(context) {
+                                              let label = context.label || '';
+                                              if (label) {
+                                                  label += ': ';
+                                              }
+                                              label += Math.round(context.raw);
+                                              return label;
+                                          }
+                                      }
+                                  }
+                              },
+                              responsive: false,
+                              maintainAspectRatio: true,
+                              plugins: {
+                                  legend: {
+                                      position: 'left',
+                                      labels: {
+                                          font: { size: 18 }
+                                      }
+                                  },
+                                  title: {
+                                      display: true,
+                                      text: 'Aspectos Mais Elogiados ou Criticados',
+                                      font: { size: 24 },
+                                      padding: { bottom: 30 }
+                                      
+                                  }
+                              }
+                          }
+                      });
+                  });
+              </script>
+      
+
+
+
+      
+              </div>
+          </div>
+          </section>
+
+          <!--gestão financeira-->
+          <section id="financeira" class="hidden">
+            <h2>Gestão financeira</h2>
+
+
+    
+              <h2>Resumo Financeiro</h2>
+              <div class="stats-grid">
+                  <div class="stat-card">
+                      <h3>Receita Total</h3>
+                      <p>R$ 550.000,00</p>
+                  </div>
+                  <div class="stat-card">
+                      <h3>Despesas Totais</h3>
+                      <p>R$ 300.000,00</p>
+                  </div>
+                  <div class="stat-card">
+                      <h3>Lucro Líquido</h3>
+                      <p>R$ 250.000,00</p>
+                  </div>
+                  <div class="stat-card">
+                      <h3>Ocupação Média</h3>
+                      <p>78%</p>
+                  </div>
+              </div>
+          
+              <h2>Relatórios Financeiros</h2>
+
+                        <!-- Gráfico de Barras -->
+          <div class="container" id="chart02_div"></div>
+      
+          <script type="text/javascript">
+            google.charts.load('current', {packages: ['corechart', 'bar']});
+            google.charts.setOnLoadCallback(drawAxisTickColors);
+          
+            function drawAxisTickColors() {
+              var data = new google.visualization.DataTable();
+              data.addColumn('string', '2024');
+              data.addColumn('number', 'Receita');
+              data.addColumn('number', 'Despesas');
+          
+              data.addRows([
+                ['Jan', 45000, 25000],
+                ['Fev', 40000, 20000],
+                ['Mar', 50000, 28000],
+                ['Abr', 45000, 26000],
+                ['Mai', 47000, 25000],
+                ['Jun', 46000, 26000],
+                ['Jul', 48000, 28000],
+                ['Ago', 50000, 29000],
+                ['Set', 52000, 30000],
+                ['Out', 55000, 31000],
+                ['Nov', 56000, 32000],
+                ['Dez', 66000, 33000],
+              ]);
+          
+              var options = {
+                width: 770,
+                height: 520,
+                title: 'Receita e Despesas',
+                titleTextStyle: {
+                  fontSize: 24,
+                  bold: true,
+                  color: '#333',
+                  alignment: 'center'
+                },
+                focusTarget: 'category',
+                hAxis: {
+                  title: '2024',
+                  textStyle: {
+                    fontSize: 14,
+                    color: '#053061',
+                    bold: true,
+                    italic: false
+                  },
+                  titleTextStyle: {
+                    fontSize: 18,
+                    color: '#053061',
+                    bold: true,
+                    italic: false
+                  }
+                },
+                vAxis: {
+                  title: 'Valores em R$',
+                  textStyle: {
+                    fontSize: 18,
+                    color: '#67001f',
+                    bold: false,
+                    italic: false
+                  },
+                  titleTextStyle: {
+                    fontSize: 18,
+                    color: '#67001f',
+                    bold: true,
+                    italic: false
+                  }
+                }
+              };
+          
+              var chart = new google.visualization.ColumnChart(document.getElementById('chart02_div'));
+              chart.draw(data, options);
+            }
+          </script>
+          
+          <br>
+
+          <h2>Gráfico de receita</h2>
+          <div class="container-fluid graficos">
+            <div  class="container" id="graficoLinha2">
+              
+              <script>
+                function desenharGrafico() {
+                    google.charts.load('current', { 'packages': ['corechart'], 'language': 'pt' });
+                    google.charts.setOnLoadCallback(function() {
+                        var tabela = google.visualization.arrayToDataTable([
+                            ['Mês', 'Alcançado', 'Esperado'],
+                            ['Jan', 45000, 49500],
+                            ['Fev', 40000, 44000],
+                            ['Mar', 50000, 55000],
+                            ['Abr', 45000, 49500],
+                            ['Mai', 47000, 51700],
+                            ['Jun', 46000, 50600],
+                            ['Jul', 48000, 52800],
+                            ['Ago', 50000, 55000],
+                            ['Set', 52000, 57200],
+                            ['Out', 55000, 60500],
+                            ['Nov', 56000, 61600],
+                            ['Dez', 66000, 72600]
+                        ]);
+              
+                        var opcoes = {
+                            title: 'Receita esperada e alcançada por mês',
+                            width: 800,
+                            height: 400,
+                            vAxis: {
+                                gridlines: { color: 'transparent' },
+                                format: 'currency',
+                                title: 'Valores'
+                            },
+                            hAxis: {
+                                title: '2024'
+                            }
+                        };
+              
+                        var grafico = new google.visualization.LineChart(document.getElementById('graficoLinha2'));
+                        grafico.draw(tabela, opcoes);
+                    });
+                }
+              
+                desenharGrafico(); // Chamar a função para desenhar o gráfico
+              </script>
+    
+            </div>
+        </div>
+
+          <br>
+
+          <script type="text/javascript">
+            google.charts.load('current', {packages: ['corechart', 'bar']});
+            google.charts.setOnLoadCallback(drawPredictionChart);
+          
+            function drawPredictionChart() {
+              var data = new google.visualization.DataTable();
+              data.addColumn('string', '2025');
+              data.addColumn('number', 'Receita');
+              data.addColumn('number', 'Despesas');
+          
+              data.addRows([
+                ['Jan', 49500, 26250],
+                ['Fev', 44000, 21000],
+                ['Mar', 55000, 29400],
+                ['Abr', 49500, 27300],
+                ['Mai', 51700, 26250],
+                ['Jun', 50600, 27300],
+                ['Jul', 52800, 29400],
+                ['Ago', 55000, 30450],
+                ['Set', 57200, 31500],
+                ['Out', 60500, 32550],
+                ['Nov', 61600, 33600],
+                ['Dez', 72600, 34650],
+              ]);
+          
+              var options = {
+                width: 770,
+                height: 520,
+                title: 'Previsões de Receita e Despesas para 2025',
+                titleTextStyle: {
+                  fontSize: 24,
+                  bold: true,
+                  color: '#333',
+                  alignment: 'center'
+                },
+                focusTarget: 'category',
+                hAxis: {
+                  title: '2025',
+                  textStyle: {
+                    fontSize: 14,
+                    color: '#053061',
+                    bold: true,
+                    italic: false
+                  },
+                  titleTextStyle: {
+                    fontSize: 18,
+                    color: '#053061',
+                    bold: true,
+                    italic: false
+                  }
+                },
+                vAxis: {
+                  title: 'Valores em R$',
+                  textStyle: {
+                    fontSize: 18,
+                    color: '#67001f',
+                    bold: false,
+                    italic: false
+                  },
+                  titleTextStyle: {
+                    fontSize: 18,
+                    color: '#67001f',
+                    bold: true,
+                    italic: false
+                  }
+                }
+              };
+          
+              var chart = new google.visualization.ColumnChart(document.getElementById('prediction_chart_div'));
+              chart.draw(data, options);
+            }
+          </script>
+          <h2>Previsão para o Proximo ano</h2>
+          <div class="container" id="prediction_chart_div"></div>
+
+          <br>
+          
+              <h2>Gestão de Receitas e Despesas</h2>
+
+              <script type="text/javascript">
+                google.charts.load('current', {packages: ['corechart', 'bar']});
+                google.charts.setOnLoadCallback(drawRevenueManagementChart);
+              
+                function drawRevenueManagementChart() {
+                  var data = google.visualization.arrayToDataTable([
+                    ['Mês', 'Reservas ', 'Serviço de Qua.', 'Restaurante', 'Outras Receitas'],
+                    ['Jan', 30000, 5000, 7000, 3000],
+                    ['Fev', 28000, 4500, 6500, 2500],
+                    ['Mar', 35000, 5500, 7500, 3000],
+                    ['Abr', 32000, 5000, 7000, 2800],
+                    ['Mai', 34000, 5200, 7200, 2600],
+                    ['Jun', 33000, 5100, 7100, 2500],
+                    ['Jul', 36000, 5500, 7500, 3000],
+                    ['Ago', 37000, 5600, 7600, 2900],
+                    ['Set', 38000, 5700, 7700, 3100],
+                    ['Out', 40000, 6000, 8000, 3200],
+                    ['Nov', 41000, 6100, 8100, 3300],
+                    ['Dez', 50000, 7000, 9000, 4000]
+                  ]);
+              
+                  var options = {
+                    title: 'Gestão de Receitas por Fonte',
+                    width: 1000,
+                    height: 400,
+                    vAxis: {
+                      gridlines: { color: 'transparent' },
+                      format: 'currency',
+                      title: 'Valores em R$'
+                    },
+                    hAxis: {
+                      title: '2024'
+                    },
+                    isStacked: true
+                  };
+              
+                  var chart = new google.visualization.ColumnChart(document.getElementById('revenueManagementChart'));
+                  chart.draw(data, options);
+                }
+              
+                drawRevenueManagementChart(); // Chamar a função para desenhar o gráfico
+              </script>
+
+              <div class="container" id="revenueManagementChart"></div>
+
+          
+
+
+
+
+          </section>
+
+  <script>
+    //navegação no menu lateral
+    // Toggle dropdown menus in sidebar
+    document.querySelectorAll('.sidebar > ul > li').forEach(li => {
+      if (li.querySelector('ul')) {
+        li.addEventListener('click', function(e) {
+          e.stopPropagation();
+          this.classList.toggle('open');
+        });
+      }
+    });
+
+    // Show/hide sections based on sidebar navigation
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        let targetId = this.getAttribute('data-target');
+        document.querySelectorAll('section').forEach(section => {
+          if (section.id === targetId) {
+            section.classList.remove('hidden');
+          } else {
+            section.classList.add('hidden');
+          }
+        });
+        document.querySelector('.sidebar a.active').classList.remove('active');
+        this.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
